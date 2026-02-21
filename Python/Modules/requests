@@ -1,0 +1,36 @@
+import requests
+
+rep = requests.get("https://www.education.gouv.fr/test")
+rep
+
+rep.status_code
+
+url = """https://geo.api.gouv.fr/departements/06/communes?fields=nom,code,population&format=json"""
+rep = requests.get(url)
+rep.status_code
+
+rep.json()[:4]
+
+url = "https://geo.api.gouv.fr/communes?codePostal=06600"
+rep = requests.get(url)
+rep.json()
+
+url = """https://api-adresse.data.gouv.fr/search/?q=Boulevard+de+Bacon&limit=4"""
+rep = requests.get(url)
+rep.json()['features'][0]['properties']
+
+
+url = """https://geodatamine.fr/boundaries"""
+r = requests.get(url)
+data=r.json()
+for d in data:
+    k=d["name"]
+    if k == "Antibes":
+        print(d)
+        break #permet d'écrire l'identifiant de la ville d'Antibes 
+              #en une seul ligne
+
+
+url = """https://geodatamine.fr/data/library/-74687?format=geojson"""
+r = requests.get(url)
+print(r.json())
