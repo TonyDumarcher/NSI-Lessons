@@ -1,15 +1,23 @@
 import math
 
-def paf(somme, n):
-    print(n, somme)
-    if n <= 0:
-        return 3-somme
+def paf(somme, n, fin):
+    print(n)
+    if n >= fin:
+        return somme
     somme +=(((-1)**n)*2) / (n*(2*n+1)*(2*n+2))
-    return paf(somme, n-1)
+    return paf(somme, n+1, fin)
     
 
 def pi(somme, n):
-    return paf(somme,n)
+    nb_rec = n // 997 
+    last = n % 997
+    somme = 0
+    debut = 1
+    for rec in range(nb_rec):
+        somme = paf(somme, debut, debut + 997)
+        debut += 997
+    somme = paf(somme, debut, debut + last)
+    return 3-somme
 
 n_input = None
 while True:
